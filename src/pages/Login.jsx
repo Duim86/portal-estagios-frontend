@@ -18,8 +18,10 @@ function Login() {
       setDisableButton(!disableButton);
       
       const res = await api.post('/login', data);
+      let token = res.headers.authorization
+      token = token.replace("Bearer ", "");
       
-      localStorage.setItem('token', res.headers.authorization);
+      localStorage.setItem('token', token);
       setError(false);      
       setDisableButton(!disableButton);
       
