@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Header from '../components/Header';
 import api from '../services/api';
+
+import '../styles/selection-process.css';
 
 export default function SelectionProcess() {
   const params = useParams();
@@ -23,8 +26,11 @@ export default function SelectionProcess() {
 
   return (
     <>
-      <h1>{selectionProcess.title}</h1>
-      {token && <button className="btn btn-lg btn-primary btn-block" type="button" onClick={handleRegister}>Entrar</button>}
+      <Header />
+      <div className="selection-process">        
+        <h1>{selectionProcess.title}</h1>
+        {token && <button className="btn btn-lg btn-primary btn-block" type="button" onClick={handleRegister}>Entrar</button>}
+      </div>
     </>
   )
 }
