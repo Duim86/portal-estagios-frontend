@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 
 import api from '../services/api';
 import '../styles/login.css';
 
-function Login() {
+export default function Login() {
   const history = useHistory();
   const [disableButton, setDisableButton] = useState(true);
   const [error, setError] = useState(false)  
@@ -18,12 +18,11 @@ function Login() {
       setDisableButton(!disableButton);
       
       const res = await api.post('/login', data);
-      let token = res.headers.authorization
+      let token = res.headers.authorization      
       token = token.replace("Bearer ", ""); 
       localStorage.setItem('token', token);
-
       const user = await api.get('/students/token');
-      localStorage.setItem('user', JSON.stringify(user))
+      localStorage.setItem('user', JSON.stringify(user));
 
       setError(false);      
       setDisableButton(!disableButton);
@@ -32,7 +31,7 @@ function Login() {
     } catch(error) {
       setError(true);
     }
-  }  
+  }
   
   return (
     <>
@@ -46,7 +45,7 @@ function Login() {
     
     
       <input 
-        type="text" 
+        type="email"
         name="username" 
         placeholder="Seu e-mail"
         className="form-control"
@@ -67,9 +66,7 @@ function Login() {
       <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
       
     </form>
-    <button className="btn btn-lg btn-dark" type="submit">Sign-Up</button>
+    <Link to="sign-up"className="btn btn-lg btn-dark">Sign-Up</Link>
   </>
   )
 }
-
-export default Login;

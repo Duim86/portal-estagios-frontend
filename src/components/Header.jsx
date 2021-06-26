@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
+import fallbackImg from "../assets/fallback.svg";
+
 
 export default function Header() {
   const history = useHistory();
@@ -18,11 +20,10 @@ export default function Header() {
         <li><Link to="/" className="nav-link px-2 link-secondary">Home</Link></li>
         <li><Link to="/selection-process" className="nav-link px-2 link-dark">Oportunidades</Link></li>
       </ul>
-
       <div className="col-6 d-flex justify-content-end align-items-center">
-        <p className="mb-0 mr-3 text-center d-block text-primary">Olá, <strong>{user?.data.firstName}</strong>!</p>
+        <p className="mb-0 mr-3 text-center d-block text-primary">Olá, <strong>{user?.data.firstName || "bem vindo"}</strong>!</p>
         <a href="/" className="d-block link-dark text-decoration-none">
-          <img src={user?.data.photo} alt="mdo" width="48" height="48" className="rounded-circle" />
+          <img src={user?.data.photo || fallbackImg} alt="user" width="48" height="48" className="rounded-circle" />
         </a>
         <button className="btn btn-sm btn-dark ml-4" type="button" onClick={handleLogout}>Logout</button>
       </div>

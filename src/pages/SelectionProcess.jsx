@@ -14,7 +14,6 @@ export default function SelectionProcess() {
   return (
     <div className="container">
       <Header />
-      {/* {selectionProcesses.filter((selectionProcess) => selectionProcess.status !== 'PENDENTE').map((selectionProcess, index) => (     */}
       {selectionProcesses.filter((selectionProcess) => selectionProcess.status !== 'PENDENTE').map((selectionProcess, index) => (    
         <div className="card selection-process" key={index}>
           <h5 className="card-header">{selectionProcess.companyName}</h5>
