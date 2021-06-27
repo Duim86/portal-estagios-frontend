@@ -1,13 +1,10 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import Modal from '../components/Modal';
 
 import '../styles/login.css';
 import api from '../services/api';
 
 export default function SignUp() {
-  const [error, setError] = useState(false);
   const history = useHistory();
   const { register, handleSubmit } = useForm({});
 
@@ -17,7 +14,7 @@ export default function SignUp() {
       history.push('/selection-process');
     } catch (err) {
       if (err.status === 400) {
-        setError(true);
+        console.log(err.status);
       }
     }
   }
@@ -55,7 +52,6 @@ export default function SignUp() {
       <button className="btn btn-lg btn-primary btn-block" type="submit">
         Criar
       </button>
-      {error && <Modal />}
     </form>
   );
 }
