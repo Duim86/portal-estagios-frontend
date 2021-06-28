@@ -20,8 +20,6 @@ export default function Login() {
       let token = res.headers.authorization;
       token = token.replace('Bearer ', '');
       localStorage.setItem('token', token);
-      const user = await api.get('/students/token');
-      localStorage.setItem('user', JSON.stringify(user.data));
 
       setError(false);
       setDisableButton(!disableButton);

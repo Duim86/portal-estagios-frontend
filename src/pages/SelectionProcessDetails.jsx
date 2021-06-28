@@ -1,17 +1,16 @@
-/* eslint-disable eqeqeq */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../components/Header';
-import api from '../services/api';
 
+import authenticationUtils from '../utils/token';
+import api from '../services/api';
 import '../styles/selection-process.css';
 
 export default function SelectionProcess() {
   const params = useParams();
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = authenticationUtils.getUserActive();
   const [selectionProcess, setSelectionProcess] = useState(null);
   const [isRegistered, setIsRegistered] = useState(false);
-  const [studentList, setStudentList] = useState(null);
+  const [studentList, setStudentList] = useState([]);
 
   useEffect(async () => {
     const res = await api.get(`selection-process/${params.id}`);
@@ -21,14 +20,16 @@ export default function SelectionProcess() {
 
   useEffect(() => {
     if (user && studentList) {
-      setIsRegistered(studentList.some((student) => student.id == user.id));
+      setIsRegistered(
+        studentList.some((student) => student.id === Number(user.entity.id)),
+      );
     }
   }, [studentList]);
 
   async function handleRegister() {
     setStudentList((oldList) => [
       ...oldList,
-      { id: Number(user.id), firstName: user.firstName },
+      { id: Number(user.entity.id), firstName: user.entity.firstName },
     ]);
 
     await api.put(`selection-process/${params.id}/register`);
@@ -36,14 +37,13 @@ export default function SelectionProcess() {
 
   async function handleUnregister() {
     setStudentList((students) =>
-      students.filter((student) => student.id != user.id),
+      students.filter((student) => student.id !== Number(user.entity.id)),
     );
     await api.put(`selection-process/${params.id}/leave`);
   }
 
   return (
     <>
-      <Header />
       {!selectionProcess ? (
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -51,6 +51,7 @@ export default function SelectionProcess() {
       ) : (
         <div className="selection-process">
           <h1>{selectionProcess.title}</h1>
+          <h5>Inscritos: {studentList.length}</h5>
           {user && (
             <>
               {isRegistered ? (

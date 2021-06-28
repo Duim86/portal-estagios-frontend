@@ -9,14 +9,8 @@ export default function SignUp() {
   const { register, handleSubmit } = useForm({});
 
   async function onSubmit(data) {
-    try {
-      await api.post('registration/student', data);
-      history.push('/selection-process');
-    } catch (err) {
-      if (err.status === 400) {
-        console.log(err.status);
-      }
-    }
+    await api.post('registration/student', data);
+    history.push('/selection-process');
   }
 
   return (

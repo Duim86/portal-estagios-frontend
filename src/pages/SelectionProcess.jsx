@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
-import Header from '../components/Header';
 import api from '../services/api';
 
 import '../styles/selection-process.css';
@@ -16,7 +14,6 @@ export default function SelectionProcess() {
 
   return (
     <div className="container">
-      <Header />
       {!selectionProcesses ? (
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>
