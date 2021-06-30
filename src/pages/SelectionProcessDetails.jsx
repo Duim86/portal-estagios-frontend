@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Header from '../components/Header';
 
 import authenticationUtils from '../utils/token';
 import api from '../services/api';
@@ -27,23 +28,38 @@ export default function SelectionProcess() {
   }, [studentList]);
 
   async function handleRegister() {
-    setStudentList((oldList) => [
-      ...oldList,
-      { id: Number(user.entity.id), firstName: user.entity.firstName },
-    ]);
+    try {
+      await api.put(`selection-process/${params.id}/register`);
+      setStudentList((oldList) => [
+        ...oldList,
+        { id: Number(user.entity.id), firstName: user.entity.firstName },
+      ]);
+    } catch (error) {
+      const { status, detail } = error.response.data;
 
-    await api.put(`selection-process/${params.id}/register`);
+      if (status === 400) {
+        console.log(detail);
+      }
+      if (status === 500) {
+        console.log(detail);
+      }
+    }
   }
 
   async function handleUnregister() {
-    setStudentList((students) =>
-      students.filter((student) => student.id !== Number(user.entity.id)),
-    );
-    await api.put(`selection-process/${params.id}/leave`);
+    try {
+      await api.put(`selection-process/${params.id}/leave`);
+      setStudentList((students) =>
+        students.filter((student) => student.id !== Number(user.entity.id)),
+      );
+    } catch (error) {
+      console.log(error.response.data);
+    }
   }
 
   return (
     <>
+      <Header />
       {!selectionProcess ? (
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>

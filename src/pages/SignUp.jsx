@@ -10,7 +10,7 @@ export default function SignUp() {
 
   async function onSubmit(data) {
     await api.post('registration/student', data);
-    history.push('/selection-process');
+    history.push('/sign-in');
   }
 
   return (

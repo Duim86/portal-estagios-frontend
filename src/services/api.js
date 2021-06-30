@@ -11,9 +11,9 @@ api.interceptors.request.use(async (config) => {
   if (token) {
     auth.headers.Authorization = `Bearer ${token}`;
   }
-  if (config.delayed) {
-    return new Promise((resolve) => setTimeout(() => resolve(config), 1000));
-  }
+  // if (config.delayed) {
+  //   return new Promise((resolve) => setTimeout(() => resolve(config), 1000));
+  // }
   return auth;
 });
 

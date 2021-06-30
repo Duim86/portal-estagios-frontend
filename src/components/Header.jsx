@@ -8,11 +8,11 @@ export default function Header() {
 
   function handleLogout() {
     localStorage.removeItem('token');
-    history.push('/sign-up');
+    history.push('/sign-in');
   }
 
   return (
-    <header className="col-12 d-flex align-items-center justify-content-center justify-content-evenly py-3 mb-4 border-bottom">
+    <header className="col-12 d-flex align-items-center justify-content-between py-3 mb-4 border-bottom">
       <ul className="nav col-6 col-md-auto mb-2 justify-content-center mb-md-0">
         <li>
           <Link to="/" className="nav-link px-2 link-primary">
@@ -25,7 +25,7 @@ export default function Header() {
           <p className="mb-0 me-3 text-center d-block text-primary">
             Olá, <strong>{token?.entity.firstName || 'bem vindo'}</strong>!
           </p>
-          <a href="/" className="d-block link-dark text-decoration-none">
+          <a href="/profile" className="d-block link-dark text-decoration-none">
             <img
               src={token?.entity.photo || fallbackImg}
               alt="user"
