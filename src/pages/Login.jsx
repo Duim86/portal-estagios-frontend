@@ -20,13 +20,11 @@ export default function Login() {
       let token = res.headers.authorization;
       token = token.replace('Bearer ', '');
       localStorage.setItem('token', token);
-      const user = await api.get('/students/token');
-      localStorage.setItem('user', JSON.stringify(user));
 
       setError(false);
       setDisableButton(!disableButton);
 
-      history.push('/selection-process');
+      history.push('/');
     } catch (err) {
       setError(true);
     }
@@ -65,9 +63,11 @@ export default function Login() {
           Login
         </button>
       </form>
-      <Link to="sign-up" className="btn btn-lg btn-dark">
-        Sign-Up
-      </Link>
+      <div>
+        <Link to="sign-up" className="btn btn-lg btn-dark">
+          Sign-Up
+        </Link>
+      </div>
     </>
   );
 }

@@ -1,25 +1,16 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import Modal from '../components/Modal';
 
 import '../styles/login.css';
 import api from '../services/api';
 
 export default function SignUp() {
-  const [error, setError] = useState(false);
   const history = useHistory();
   const { register, handleSubmit } = useForm({});
 
   async function onSubmit(data) {
-    try {
-      await api.post('registration/student', data);
-      history.push('/selection-process');
-    } catch (err) {
-      if (err.status === 400) {
-        setError(true);
-      }
-    }
+    await api.post('registration/student', data);
+    history.push('/sign-in');
   }
 
   return (
@@ -55,7 +46,6 @@ export default function SignUp() {
       <button className="btn btn-lg btn-primary btn-block" type="submit">
         Criar
       </button>
-      {error && <Modal />}
     </form>
   );
 }

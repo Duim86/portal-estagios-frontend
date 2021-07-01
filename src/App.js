@@ -1,11 +1,10 @@
-import Footer from './components/Footer';
 import Routes from './routes';
+import './styles/global.css';
 
 function App() {
   return (
     <>
       <Routes />
-      <Footer />
     </>
   );
 }

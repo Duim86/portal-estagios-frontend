@@ -1,9 +1,13 @@
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import Footer from './components/Footer';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import SelectionProcess from './pages/SelectionProcess';
 import SelectionProcessDetails from './pages/SelectionProcessDetails';
 import Management from './pages/Management';
+import Profile from './pages/Profile';
+
+import './styles/global.css';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const isAuthenticated = localStorage.getItem('token');
@@ -45,8 +49,11 @@ const Routes = () => (
         exact
         component={SelectionProcessDetails}
       />
+
+      <Route path="/profile" exact component={Profile} />
       <PrivateRoute path="/management" exact component={Management} />
     </Switch>
+    <Footer />
   </BrowserRouter>
 );
 
